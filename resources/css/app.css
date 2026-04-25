@@ -1,0 +1,125 @@
+/* =============================================================================
+   FILE: resources/css/app.css
+   PURPOSE: Entry point CSS - Tailwind directives + custom procurement styles
+   ============================================================================= */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Font Import ──────────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+
+/* ── Base Styles ─────────────────────────────────────────────────────────── */
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-tap-highlight-color: transparent; /* Hapus tap highlight di mobile */
+  }
+
+  /* Safe area untuk iPhone notch / Android gestures */
+  body {
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-top: env(safe-area-inset-top);
+  }
+}
+
+/* ── Komponen Custom ─────────────────────────────────────────────────────── */
+@layer components {
+
+  /* Status badge procurement yang konsisten */
+  .status-badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  /* Card dengan border kiri berwarna (untuk highlight) */
+  .card-accent-left {
+    @apply border-l-4 pl-4;
+  }
+
+  /* Tombol upload file */
+  .upload-zone {
+    @apply border-2 border-dashed border-base-300 rounded-xl p-8
+           flex flex-col items-center justify-center cursor-pointer
+           hover:border-primary hover:bg-primary/5 transition-all duration-200;
+  }
+
+  /* Tabel comparison supplier */
+  .comparison-table th {
+    @apply bg-base-200 text-xs font-semibold text-base-content/70 px-4 py-3;
+  }
+  .comparison-table td {
+    @apply px-4 py-3 text-sm border-b border-base-200;
+  }
+
+  /* Bottom nav yang safe-area aware */
+  .btm-nav {
+    padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+  }
+
+  /* Loading skeleton shimmer effect */
+  .skeleton {
+    @apply animate-pulse bg-base-300 rounded;
+  }
+}
+
+/* ── Utilities ───────────────────────────────────────────────────────────── */
+@layer utilities {
+  /* Truncate multi-line */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Hide scrollbar tapi tetap scrollable (untuk mobile) */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ── Filament Customization ──────────────────────────────────────────────── */
+/* Override warna Filament agar sesuai tema procurement */
+.fi-sidebar-nav {
+  background-color: #064e3b !important; /* Emerald-900 */
+}
+
+.fi-sidebar-item-button.fi-active {
+  background-color: #059669 !important; /* Emerald-600 */
+  color: white !important;
+}
+
+/* ── PDF Viewer ──────────────────────────────────────────────────────────── */
+canvas.pdf-canvas {
+  max-width: 100%;
+  height: auto !important;
+  display: block;
+  margin: 0 auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* ── Transitions ─────────────────────────────────────────────────────────── */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.15s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: all 0.2s ease;
+}
+
+.slide-up-enter-from {
+  transform: translateY(20px);
+  opacity: 0;
+}
